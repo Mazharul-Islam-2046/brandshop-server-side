@@ -23,15 +23,33 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     const usersCollection = client.db("brandDB").collection("users");
+    const productCollection = client.db("brandDB").collection("product")
 
     // user post method
     app.post("/users", async (req, res) => {
       const user = req.body;
-      console.log(user);
       const result = await usersCollection.insertOne(user);
-      console.log(result);
       res.send(result);
     });
+
+
+    // add product (Post)
+    app.post("/products", async (req, res) => {
+        const product = req.body;
+        console.log(product);
+        const result = await productCollection.insertOne(product);
+        console.log(result);
+        res.send(result);
+      });
+
+
+
+
+
+
+
+
+
 
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
